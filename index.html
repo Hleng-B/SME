@@ -1,216 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Digital Home for Your Business</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
   <style>
     body {
-      background: linear-gradient(135deg, #8a00ff, #ff2e93);
+      background: linear-gradient(135deg, #ff007f, #8a00ff, #007bff);
+      background-attachment: fixed;
+      background-size: cover;
       color: #fff;
-      font-family: 'Times New Roman', Times, serif;
-      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
 
-    .hero {
-      padding: 80px 20px;
+    h1 {
+      font-family: 'Audiowide', cursive;
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(255,255,255,0.7);
+      animation: glowPulse 4s ease-in-out infinite;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { text-shadow: 0 0 12px rgba(255,255,255,0.8), 0 0 25px rgba(138,0,255,0.6); }
+      50% { text-shadow: 0 0 20px rgba(255,255,255,1), 0 0 40px rgba(255,46,147,0.8); }
+    }
+
+    .content-wrapper {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 30px 20px 80px;
       text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-theme {
+      background: linear-gradient(135deg, #ff2e93, #8a00ff, #007bff);
+      background-size: 300% 300%;
+      border: none;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-weight: 600;
+      min-width: 200px;
+      text-align: center;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn-theme:hover {
+      transform: scale(1.05);
+      background-position: right center;
+      box-shadow: 0 0 18px rgba(255,255,255,0.5);
+    }
+
+    .offer-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      align-items: stretch;
+      margin-top: 40px;
     }
 
     .offer-box {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 20px;
-      font-family: Arial, Helvetica, sans-serif;
+      flex: 1;
+      min-width: 300px;
+      background: rgba(0, 25, 80, 0.75);
+      border: 1px solid rgba(0, 150, 255, 0.25);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: left;
     }
 
-    /* FORM AREA */
+    .offer-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 25px rgba(0,150,255,0.5);
+    }
+
+    .offer-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 25px;
+    }
+
     .form-container {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 20px;
-      font-family: Arial, Helvetica, sans-serif;
+      background: rgba(0, 25, 80, 0.75);
+      border: 1px solid rgba(0, 150, 255, 0.25);
+      border-radius: 16px;
+      padding: 25px;
+      margin-top: 40px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
     }
 
     .form-row {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
-    }
-
-    .form-row .form-control {
-      flex: 1;
-      min-width: 200px;
-    }
-
-    @media (max-width: 768px) {
-      .form-row {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .form-row .form-control {
-        width: 100%;
-        min-width: unset;
-      }
-
-      .hero {
-        padding: 40px 15px;
-      }
-
-      .offer-box,
-      .form-container {
-        margin: 15px 0;
-        padding: 15px;
-      }
     }
 
     .form-control {
       border-radius: 10px;
-      border: 1px solid #b5b5a9;
+      border: 1px solid rgba(0,150,255,0.4);
       padding: 10px 12px;
-      box-sizing: border-box;
-      font-size: 0.95rem;
-    }
-
-
-    .btn-submit {
-      background: linear-gradient(135deg, #8a00ff, #ff2e93);
-      border: none;
+      background: rgba(255,255,255,0.1);
       color: #fff;
-      padding: 10px 22px;
-      border-radius: 22px;
-      font-weight: 600;
-      align-self: center;
     }
 
+    .form-control::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
 
     footer {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
       text-align: center;
       color: white;
       font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      margin-top: 60px;
+      padding: 25px 10px;
+    }
 
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    /* === POPUP === */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+      z-index: 9999;
+    }
+
+    .popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup {
+      background: rgba(10, 20, 60, 0.95);
+      border-radius: 20px;
+      padding: 15px;
+      text-align: center;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 0 40px rgba(0,150,255,0.4);
+      position: relative;
+      animation: popIn 0.6s ease forwards;
+      overflow: hidden;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    .carousel-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: auto;
+      max-height: 350px;
+      border-radius: 14px;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 8%;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      filter: brightness(0) invert(1);
+      width: 2.2rem;
+      height: 2.2rem;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .carousel-control-prev-icon:hover,
+    .carousel-control-next-icon:hover {
+      filter: drop-shadow(0 0 10px #00ffff);
+      transform: scale(1.1);
+    }
+
+    .carousel-control-prev { left: 10px; }
+    .carousel-control-next { right: 10px; }
+
+    @media (max-width: 768px) {
+      .carousel-item img { max-height: 300px; }
+      .carousel-control-prev, .carousel-control-next { width: 12%; }
+    }
+
+    @media (max-width: 576px) {
+      .carousel-control-prev { left: 5px; }
+      .carousel-control-next { right: 5px; }
+      .carousel-item img { max-height: 240px; }
+    }
+
+    /* === Thank You Popup === */
+    .thankyou-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 10000;
+    }
+
+    .thankyou-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .thankyou-box {
+      background: rgba(10,20,60,0.95);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 0 25px rgba(0,150,255,0.5);
+      font-family: 'Inter', sans-serif;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
 
 <body>
-  <section class="hero container">
-    <h1 class="fw-bold">Give Your Business a Digital Home</h1>
-    <p>We help SMEs go digital with modern business websites.</p>
+  <div class="content-wrapper">
+    <h1>Give Your Business a Digital Home</h1>
+    <p>We help SMEs go digital with modern, conversion-focused business websites.</p>
 
+    <div class="offer-section">
+      <div class="offer-box">
+        <h4>Our Offer:</h4>
+        <ul>
+          <li>Website Landing Page</li>
+          <li>About Us Section</li>
+          <li>Products Page</li>
+          <li>Contact Page</li>
+          <li>Automated response forms to retain leads</li>
+        </ul>
+        <p class="mt-3"><b>From <s>R3500</s> to R550</b></p>
+        <p>Only the first 100 get the discounted price.</p>
 
-    <div class="offer-box">
-      <h4>Our Offer:</h4>
-      <ul class="text-start">
-        <li>Website Landing Page</li>
-        <li>About Us</li>
-        <li>Products</li>
-        <li>Contact Us</li>
-        <li>Automated response forms to retain leads</li>
-      </ul>
-      <p class="mt-3"><b>From <s>R3500</s> to R550</b></p>
-      <p>Only the first 100 get the discounted price.</p>
-    </div>
-    <!-- FORM EMBED SECTION -->
-    <div id="form">
-
-      <!-- FORM -->
-      <section class="form-wrap" aria-labelledby="regTitle">
-        <div class="form-container">
-          <form id="contactForm"
-            action="https://docs.google.com/forms/d/e/1FAIpQLScxPw4fI4dxtv7D0gL7fkQ7JtkvuOmfzYZUmFVF_Lhx0Z3_hQ/formResponse"
-            method="POST" target="hidden_iframe" onsubmit="submitForm(); return false;">
-
-            <div class="form-row">
-              <input class="form-control" type="text" name="entry.1873719657" placeholder="Company Name" required>
-              <input class="form-control" type="text" name="entry.340903113" placeholder="Representative Name" required>
-            </div>
-            <div class="form-row" style="margin-top: 12px;">
-              <input class="form-control" type="tel" name="entry.1794354503" placeholder="Contact Number" required>
-              <input class="form-control" type="email" name="entry.693122672" placeholder="Contact Email">
-            </div>
-            <!-- HOW DID YOU HEAR ABOUT US -->
-            <div class="form-row" style="margin-top: 12px;">
-              <label style="font-weight:600; margin-bottom:6px; display:block;">
-                Where did you hear about us?
-              </label>
-
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="entry.54598345" value="Sibahle Event" id="sibahle">
-                <label class="form-check-label" for="sibahle">Sibahle Event</label>
-              </div>
-
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="entry.54598345" value="Google" id="google">
-                <label class="form-check-label" for="google">Google</label>
-              </div>
-
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="entry.54598345" value="TikTok" id="tiktok">
-                <label class="form-check-label" for="tiktok">TikTok</label>
-              </div>
-
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="entry.54598345" value="Facebook" id="facebook">
-                <label class="form-check-label" for="facebook">Facebook</label>
-              </div>
-
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="entry.555666777" value="LinkedIn" id="linkedin">
-                <label class="form-check-label" for="linkedin">LinkedIn</label>
-              </div>
-
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="entry.545983457" value="Other" id="other">
-                <label class="form-check-label" for="other">Other:</label>
-                <input type="text" class="form-control mt-1" name="entry.54598345"
-                  placeholder="Please specify (optional)">
-              </div>
-            </div>
-
-            <div style="margin-top:8px; text-align:center;">
-              <button class="btn btn-submit" type="submit">Submit</button>
-            </div>
-
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-            <div id="thankMsg"
-              style="margin-top:10px; text-align:center; font-weight:700; color:#2e7d32; display:none;">
-              Thank you — your submission was sent!
-            </div>
-          </form>
+        <div class="offer-buttons">
+          <a href="#form-section" class="btn-theme">Claim Your Discount</a>
+          <a href="https://www.nobztech.co.za/products" target="_blank" class="btn-theme">View More Products</a>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- SMART FOOTER -->
-      <footer>&copy; 2025 <a href="https://www.nobztech.co.za/" target="_blank">NobzTech.</a>. All Rights Reserved
-      </footer>
+    <section id="form-section" class="form-wrap">
+      <div class="form-container">
+        <form id="contactForm">
+          <div class="form-row">
+            <input class="form-control" type="text" placeholder="Company Name" required>
+            <input class="form-control" type="text" placeholder="Representative Name" required>
+          </div>
 
+          <div class="form-row mt-2">
+            <input class="form-control" type="text" placeholder="Contact Number" required>
+            <input class="form-control" type="email" placeholder="Contact Email" required>
+          </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+          <div class="text-center mt-4">
+            <button class="btn-theme" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
 
-      <script>
-        function submitForm() {
-          // Submit the form
-          document.getElementById('contactForm').submit();
+  <footer>
+    &copy; 2025 <a href="https://www.nobztech.co.za/" target="_blank">NobzTech</a>. All Rights Reserved.
+  </footer>
 
-          // Show thank you message
-          setTimeout(function () {
-            document.getElementById('thankMsg').style.display = 'block';
-            document.getElementById('contactForm').reset();
-          }, 1000);
-        }
-      </script>
+  <!-- === POPUP === -->
+  <div class="popup-overlay active" id="promoPopup">
+    <div class="popup position-relative">
+      <span class="popup-close" id="closePopup">&times;</span>
+
+      <div id="popupCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="pop1.png" alt="Popup Slide 1">
+          </div>
+          <div class="carousel-item">
+            <img src="pop2.png" alt="Popup Slide 2">
+          </div>
+          <div class="carousel-item">
+            <img src="pop3.png" alt="Popup Slide 3">
+          </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#popupCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#popupCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- === THANK YOU POPUP === -->
+  <div class="thankyou-overlay" id="thankyouPopup">
+    <div class="thankyou-box">
+      <h2>✅ Thank You for Your Submission!</h2>
+      <p>We’ll get back to you soon.</p>
+      <button id="closeThankYou" class="btn-theme mt-3">Close</button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // === Popup Carousel Control ===
+    const popup = document.getElementById('promoPopup');
+    const closePopup = document.getElementById('closePopup');
+    closePopup.addEventListener('click', () => popup.classList.remove('active'));
+    popup.addEventListener('click', e => {
+      if (e.target === popup) popup.classList.remove('active');
+    });
+
+    // === Form Submission Thank-You Popup ===
+    const form = document.getElementById("contactForm");
+    const thankyouPopup = document.getElementById("thankyouPopup");
+    const closeThankYou = document.getElementById("closeThankYou");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      thankyouPopup.classList.add("active");
+      this.reset();
+    });
+
+    closeThankYou.addEventListener("click", () => {
+      thankyouPopup.classList.remove("active");
+    });
+
+    thankyouPopup.addEventListener("click", e => {
+      if (e.target === thankyouPopup) thankyouPopup.classList.remove("active");
+    });
+  </script>
 </body>
-
 </html>
