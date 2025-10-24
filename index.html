@@ -97,40 +97,72 @@
       box-shadow: 0 0 25px rgba(0,150,255,0.5);
     }
 
-    .offer-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 25px;
-    }
-
+    /* === FORM SECTION === */
     .form-container {
-      background: rgba(0, 25, 80, 0.75);
-      border: 1px solid rgba(0, 150, 255, 0.25);
+      position: relative;
+      margin-top: 50px;
+      padding: 40px 25px;
+      border-radius: 20px;
+      background: rgba(10, 20, 60, 0.8);
+      border: 1px solid rgba(0,150,255,0.25);
+      box-shadow: 0 0 35px rgba(0,0,0,0.5), 0 0 25px rgba(0,150,255,0.4) inset;
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      animation: fadeInForm 1.5s ease forwards;
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    @keyframes fadeInForm {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-container::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #ff2e93, #8a00ff, #007bff);
+      z-index: 0;
+      filter: blur(12px);
+      opacity: 0.4;
+      animation: glowRotate 8s linear infinite;
+    }
+
+    @keyframes glowRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .form-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-container h4 {
+      font-family: 'Audiowide', cursive;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .form-container p {
+      color: #ddd;
+      margin-bottom: 25px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 750px;
       border-radius: 16px;
-      padding: 25px;
-      margin-top: 40px;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 25px rgba(0,150,255,0.3);
+      border: none;
+      transition: transform 0.3s ease;
     }
 
-    .form-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .form-control {
-      border-radius: 10px;
-      border: 1px solid rgba(0,150,255,0.4);
-      padding: 10px 12px;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-    }
-
-    .form-control::placeholder {
-      color: rgba(255,255,255,0.7);
+    iframe:hover {
+      transform: scale(1.01);
     }
 
     footer {
@@ -194,13 +226,6 @@
       z-index: 20;
     }
 
-    .carousel-item {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0;
-    }
-
     .carousel-item img {
       width: 100%;
       height: auto;
@@ -208,74 +233,6 @@
       border-radius: 14px;
       object-fit: contain;
       background: #000;
-    }
-
-    .carousel-control-prev,
-    .carousel-control-next {
-      width: 8%;
-    }
-
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-      filter: brightness(0) invert(1);
-      width: 2.2rem;
-      height: 2.2rem;
-      transition: transform 0.3s ease, filter 0.3s ease;
-    }
-
-    .carousel-control-prev-icon:hover,
-    .carousel-control-next-icon:hover {
-      filter: drop-shadow(0 0 10px #00ffff);
-      transform: scale(1.1);
-    }
-
-    .carousel-control-prev { left: 10px; }
-    .carousel-control-next { right: 10px; }
-
-    @media (max-width: 768px) {
-      .carousel-item img { max-height: 300px; }
-      .carousel-control-prev, .carousel-control-next { width: 12%; }
-    }
-
-    @media (max-width: 576px) {
-      .carousel-control-prev { left: 5px; }
-      .carousel-control-next { right: 5px; }
-      .carousel-item img { max-height: 240px; }
-    }
-
-    /* === Thank You Popup === */
-    .thankyou-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.4s ease;
-      z-index: 10000;
-    }
-
-    .thankyou-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .thankyou-box {
-      background: rgba(10,20,60,0.95);
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-      color: white;
-      box-shadow: 0 0 25px rgba(0,150,255,0.5);
-      font-family: 'Inter', sans-serif;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
@@ -297,20 +254,23 @@
         </ul>
         <p class="mt-3"><b>From <s>R3500</s> to R550</b></p>
         <p>Only the first 100 get the discounted price.</p>
-
         <div class="offer-buttons">
-          <a href="#form-section" class="btn-theme">Claim Your Discount</a>
           <a href="https://www.nobztech.co.za/products" target="_blank" class="btn-theme">View More Products</a>
         </div>
       </div>
     </div>
 
+    <!-- === STYLED FORM SECTION === -->
     <section id="form-section" class="form-wrap">
       <div class="form-container">
-        <h4 class="text-center mb-3">Ready to Claim Your Discount?</h4>
-        <p class="text-center">Click the button below to fill out our form and secure your special offer. We'll get in touch with you shortly!</p>
-        <div class="text-center mt-4">
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLScxPw4fI4dxtv7D0gL7fkQ7JtkvuOmfzYZUmFVF_Lhx0Z3_hQ/viewform" target="_blank" class="btn-theme">Proceed to Form</a>
+        <div class="form-content">
+          <h4 class="text-center">Claim Your Discount</h4>
+          <p class="text-center">Complete the form below to secure your special offer — we’ll get in touch soon!</p>
+          <iframe 
+            src="https://docs.google.com/forms/d/e/1FAIpQLScxPw4fI4dxtv7D0gL7fkQ7JtkvuOmfzYZUmFVF_Lhx0Z3_hQ/viewform?embedded=true"
+            allowfullscreen>
+            Loading…
+          </iframe>
         </div>
       </div>
     </section>
@@ -324,7 +284,6 @@
   <div class="popup-overlay active" id="promoPopup">
     <div class="popup position-relative">
       <span class="popup-close" id="closePopup">&times;</span>
-
       <div id="popupCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -337,32 +296,19 @@
             <img src="pop3.png" alt="Popup Slide 3">
           </div>
         </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#popupCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#popupCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </button>
       </div>
     </div>
   </div>
 
-  <!-- The Thank You popup and Iframe are no longer needed and have been removed. -->
-  
-
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // === Popup Carousel Control ===
     const popup = document.getElementById('promoPopup');
     const closePopup = document.getElementById('closePopup');
     closePopup.addEventListener('click', () => popup.classList.remove('active'));
     popup.addEventListener('click', e => {
       if (e.target === popup) popup.classList.remove('active');
     });
-
   </script>
 </body>
 </html>
