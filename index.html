@@ -117,154 +117,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-      .form-container::before {
-        content: '';
-        position: absolute;
-        inset: -2px;
-        border-radius: 22px;
-        background: linear-gradient(135deg, #ff2e93, #8a00ff, #007bff);
-        z-index: 0;
-        filter: blur(12px);
-        opacity: 0.4;
-        animation: glowRotate 8s linear infinite;
-      }
-
-      .form-group {
-        margin-bottom: 20px;
-      }
-
-      .form-control-custom {
-        width: 100%;
-        padding: 12px 15px;
-        font-size: 1rem;
-        color: #fff;
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        transition: border-color 0.3s, box-shadow 0.3s;
-      }
-
-      .form-control-custom:focus {
-        background-color: rgba(255, 255, 255, 0.15);
-        border-color: #ff2e93;
-        box-shadow: 0 0 0 0.25rem rgba(255, 46, 147, 0.25);
-        outline: none;
-      }
-
-      .form-control-custom::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-      }
-
-      .form-label-custom {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: #fff;
-      }
-
-      .checkbox-group label {
-        display: block;
-        margin-bottom: 10px;
-        cursor: pointer;
-        font-weight: 400;
-      }
-
-      .checkbox-group input[type="checkbox"] {
-        margin-right: 10px;
-        transform: scale(1.2);
-      }
-
-      .terms-box {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 20px;
-        max-height: 150px;
-        overflow-y: auto;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9rem;
-      }
-
-      .terms-box h5 {
-        font-family: 'Inter', sans-serif;
-        font-weight: 600;
-        color: #ff2e93;
-        margin-bottom: 10px;
-      }
-
-      .terms-agreement {
-        margin-top: 20px;
-        font-size: 1rem;
-      }
-
-      .terms-agreement input[type="checkbox"] {
-        transform: scale(1.1);
-      }
-
-      .submit-button-container {
-        text-align: center;
-        margin-top: 30px;
-      }
-
-      .submit-button {
-        width: 100%;
-        max-width: 300px;
-        background: linear-gradient(90deg, #ff2e93, #8a00ff);
-        border: none;
-        color: #fff;
-        padding: 12px 25px;
-        border-radius: 25px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        cursor: pointer;
-      }
-
-      .submit-button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 18px rgba(255,255,255,0.5);
-      }
-
-    .submit-button:disabled {
-      background: gray;
-      cursor: not-allowed;
-    }
-
-    .form-container::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #ff2e93, #8a00ff, #007bff);
-      z-index: 0;
-      filter: blur(12px);
-      opacity: 0.4;
-      animation: glowRotate 8s linear infinite;
-    }
-	
-	    @keyframes glowRotate {
-	      0% { transform: rotate(0deg); }
-	      100% { transform: rotate(360deg); }
-	    }
-	
-	    .form-content {
-	      position: relative;
-	      z-index: 1;
-	    }
-	
-	    .form-container h4 {
-	      font-family: 'Audiowide', cursive;
-	      text-transform: uppercase;
-	      letter-spacing: 1px;
-	      margin-bottom: 10px;
-	    }
-	
-	    .form-container p {
-	      color: #ddd;
-	      margin-bottom: 25px;
-	    }
-
     footer {
       text-align: center;
       color: white;
@@ -279,60 +131,12 @@
       text-decoration: underline;
     }
 
-    /* === POPUP === */
-    .popup-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.5s ease;
-      z-index: 9999;
-    }
-
-    .popup-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .popup {
-      background: rgba(10, 20, 60, 0.95);
-      border-radius: 20px;
-      padding: 15px;
-      text-align: center;
-      max-width: 600px;
-      width: 90%;
-      box-shadow: 0 0 40px rgba(0,150,255,0.4);
-      position: relative;
-      animation: popIn 0.6s ease forwards;
-      overflow: hidden;
-    }
-
-    @keyframes popIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .popup-close {
-      position: absolute;
-      top: 10px;
-      right: 18px;
-      font-size: 2rem;
-      color: #fff;
-      cursor: pointer;
-      z-index: 20;
-    }
-
-    .carousel-item img {
-      width: 100%;
-      height: auto;
-      max-height: 350px;
-      border-radius: 14px;
-      object-fit: contain;
-      background: #000;
+    .form-message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -354,171 +158,68 @@
         </ul>
         <p class="mt-3"><b>From <s>R3500</s> to R550</b></p>
         <p>Only the first 100 get the discounted price.</p>
-        <div class="offer-buttons">
-          <a href="https://www.nobztech.co.za/products" target="_blank" class="btn-theme">View More Products</a>
-        </div>
+        <a href="https://www.nobztech.co.za/products" target="_blank" class="btn-theme">View More Products</a>
       </div>
     </div>
 
-    <!-- === STYLED FORM SECTION === -->
+    <!-- === FORM === -->
     <section id="form-section" class="form-wrap">
       <div class="form-container">
         <div class="form-content">
           <h4 class="text-center">Claim Your Discount</h4>
           <p class="text-center">Complete the form below to secure your special offer — we’ll get in touch soon!</p>
+
           <form id="discountForm" class="text-start">
-            <!-- Section 1: Contact Information -->
-            <div class="form-group">
-              <label for="companyName" class="form-label-custom">Company Name *</label>
-              <input type="text" id="companyName" name="companyName" class="form-control-custom" required>
+            <div class="mb-3">
+              <label class="form-label">Company Name *</label>
+              <input type="text" id="companyName" name="companyName" class="form-control" required>
             </div>
 
-            <div class="form-group">
-              <label for="representativeName" class="form-label-custom">Representative Name *</label>
-              <input type="text" id="representativeName" name="representativeName" class="form-control-custom" required>
+            <div class="mb-3">
+              <label class="form-label">Representative Name *</label>
+              <input type="text" id="representativeName" name="representativeName" class="form-control" required>
             </div>
 
-            <div class="form-group">
-              <label for="contactNumber" class="form-label-custom">Contact Number *</label>
-              <input type="tel" id="contactNumber" name="contactNumber" class="form-control-custom" required>
+            <div class="mb-3">
+              <label class="form-label">Contact Number *</label>
+              <input type="tel" id="contactNumber" name="contactNumber" class="form-control" required>
             </div>
 
-            <div class="form-group">
-              <label for="contactEmail" class="form-label-custom">Contact Email *</label>
-              <input type="email" id="contactEmail" name="contactEmail" class="form-control-custom" required>
+            <div class="mb-3">
+              <label class="form-label">Contact Email *</label>
+              <input type="email" id="contactEmail" name="contactEmail" class="form-control" required>
             </div>
 
-            <!-- Section 2: Where did you hear about us? -->
-            <div class="form-group">
-              <label class="form-label-custom">Where did you hear about us? *</label>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="source" value="Sibahle's Event"> Sibahle's Event</label>
-                <label><input type="checkbox" name="source" value="Google"> Google</label>
-                <label><input type="checkbox" name="source" value="Tik Tok"> Tik Tok</label>
-                <label><input type="checkbox" name="source" value="Facebook"> Facebook</label>
-                <label><input type="checkbox" name="source" value="LinkedIn"> LinkedIn</label>
+            <div class="mb-3">
+              <label class="form-label">Where did you hear about us? *</label>
+              <div>
+                <label><input type="checkbox" name="source" value="Sibahle's Event"> Sibahle's Event</label><br>
+                <label><input type="checkbox" name="source" value="Google"> Google</label><br>
+                <label><input type="checkbox" name="source" value="Tik Tok"> Tik Tok</label><br>
+                <label><input type="checkbox" name="source" value="Facebook"> Facebook</label><br>
+                <label><input type="checkbox" name="source" value="LinkedIn"> LinkedIn</label><br>
                 <label>
                   <input type="checkbox" id="otherSourceCheckbox" name="source" value="Other"> Other:
-                  <input type="text" id="otherSourceText" name="otherSourceText" class="form-control-custom mt-2" placeholder="Please specify" style="display: none;">
+                  <input type="text" id="otherSourceText" name="otherSourceText" class="form-control mt-2" placeholder="Please specify" style="display:none;">
                 </label>
               </div>
             </div>
 
-            <!-- Section 3: Terms and Conditions -->
-            <div class="form-group">
-              <label class="form-label-custom">Terms and Conditions</label>
-              <div class="terms-box">
-                <h5>Please review our Terms and Conditions before continuing.</h5>
-                <p>
-                  <strong>1. Offer Eligibility:</strong> The discounted price of R550 is exclusively available to the first 100 businesses that successfully complete this form and sign a service agreement. Standard pricing (R3500) applies thereafter.
-                </p>
-                <p>
-                  <strong>2. Service Scope:</strong> The R550 offer includes a single-page website (Landing Page) with an About Us section, Products Page, Contact Page, and automated response forms for lead retention. Additional features or pages will incur extra charges.
-                </p>
-                <p>
-                  <strong>3. Payment:</strong> The full discounted amount of R550 is payable upfront to secure the offer and commence work. This fee is non-refundable once work has begun.
-                </p>
-                <p>
-                  <strong>4. Data Usage:</strong> By submitting this form, you agree to allow NobzTech to use your contact information to follow up on your enquiry and for marketing purposes. Your data will be handled in accordance with our Privacy Policy.
-                </p>
-                <p>
-                  <strong>5. Agreement:</strong> Submission of this form is an expression of interest and does not constitute a final contract. A formal service agreement will be provided for signature upon contact.
-                </p>
-              </div>
-              <div class="terms-agreement">
-                <label>
-                  <input type="checkbox" id="agreeTerms" name="agreeTerms" required> Yes. I have read and agree to the terms and conditions listed above.
+            <div class="mb-3">
+              <div class="form-check">
+                <input type="checkbox" id="agreeTerms" name="agreeTerms" class="form-check-input" required>
+                <label class="form-check-label" for="agreeTerms">
+                  I agree to the terms and conditions.
                 </label>
               </div>
             </div>
 
             <div class="submit-button-container">
-              <button type="submit" class="submit-button">Submit</button>
+              <button type="submit" class="btn-theme" id="submitBtn">Submit</button>
             </div>
+
+            <div id="formMessage" class="form-message"></div>
           </form>
-
-          <div id="formMessage" class="text-center mt-3" style="display: none; padding: 10px; border-radius: 5px; color: white;"></div>
-          
-          <script>
-            // --- Form Logic ---
-            const form = document.getElementById('discountForm');
-            const submitButton = form.querySelector('.submit-button');
-            const otherCheckbox = document.getElementById('otherSourceCheckbox');
-            const otherText = document.getElementById('otherSourceText');
-            const formMessage = document.getElementById('formMessage');
-            
-            // IMPORTANT: REPLACE THIS PLACEHOLDER URL WITH YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL
-            const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzyraJyvnKLg29sPZiFAfrC1mZ9xsAYX7oQcZd5RvmhYzvOLPdhh1IuT7TaQjA5Ya3ePg/exec';
-
-            // 1. Logic for "Other" checkbox
-            otherCheckbox.addEventListener('change', function() {
-              if (this.checked) {
-                otherText.style.display = 'block';
-                otherText.setAttribute('required', 'required');
-              } else {
-                otherText.style.display = 'none';
-                otherText.removeAttribute('required');
-                otherText.value = ''; // Clear value when unchecked
-              }
-            });
-
-            // 2. Form Submission Handler
-            form.addEventListener('submit', function(e) {
-              e.preventDefault(); // Stop default form submission
-              
-              // Basic validation to ensure "Other" text is included if checked
-              if (otherCheckbox.checked && otherText.value.trim() === '') {
-                  alert("Please specify how you heard about us in the 'Other' field.");
-                  otherText.focus();
-                  return;
-              }
-
-              submitButton.disabled = true;
-              submitButton.textContent = 'Submitting...';
-              formMessage.style.display = 'none';
-
-              const formData = new FormData(form);
-              
-              // Google Apps Script expects URL-encoded data, not JSON
-              const urlEncodedData = new URLSearchParams(formData).toString();
-
-              fetch(GOOGLE_APP_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'cors', // Crucial for cross-origin requests to GAS
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: urlEncodedData
-              })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('Network response was not ok');
-                }
-                return response.json();
-              })
-              .then(data => {
-                if (data.result === 'success') {
-                  formMessage.style.backgroundColor = '#28a745'; // Green for success
-                  formMessage.textContent = 'Success! Your discount claim has been submitted. We will contact you soon.';
-                  formMessage.style.display = 'block';
-                  form.reset(); // Clear the form on success
-                  otherText.style.display = 'none'; // Hide "Other" text field
-                } else {
-                  throw new Error('Submission failed on the server side.');
-                }
-              })
-              .catch(error => {
-                console.error('Error:', error);
-                formMessage.style.backgroundColor = '#dc3545'; // Red for error
-                formMessage.textContent = 'An error occurred during submission. Please try again or contact us directly.';
-                formMessage.style.display = 'block';
-              })
-              .finally(() => {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Submit';
-              });
-            });
-          </script>
         </div>
       </div>
     </section>
@@ -528,39 +229,74 @@
     &copy; 2025 <a href="https://www.nobztech.co.za/" target="_blank">NobzTech</a>. All Rights Reserved.
   </footer>
 
-  <!-- === POPUP === -->
-  <div class="popup-overlay active" id="promoPopup">
-    <div class="popup position-relative">
-      <span class="popup-close" id="closePopup">&times;</span>
-      <div id="popupCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="pop1.png" alt="Popup Slide 1">
-          </div>
-          <div class="carousel-item">
-            <img src="pop2.png" alt="Popup Slide 2">
-          </div>
-          <div class="carousel-item">
-            <img src="pop3.png" alt="Popup Slide 3">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    const popup = document.getElementById('promoPopup');
-    const closePopup = document.getElementById('closePopup');
-    closePopup.addEventListener('click', () => popup.classList.remove('active'));
-    popup.addEventListener('click', e => {
-      if (e.target === popup) popup.classList.remove('active');
+    const form = document.getElementById('discountForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const otherCheckbox = document.getElementById('otherSourceCheckbox');
+    const otherText = document.getElementById('otherSourceText');
+    const formMessage = document.getElementById('formMessage');
+
+    // ✅ Replace this URL with your *newly deployed* Web App URL
+    const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzyraJyvnKLg29sPZiFAfrC1mZ9xsAYX7oQcZd5RvmhYzvOLPdhh1IuT7TaQjA5Ya3ePg/exec';
+
+    otherCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        otherText.style.display = 'block';
+        otherText.required = true;
+      } else {
+        otherText.style.display = 'none';
+        otherText.required = false;
+        otherText.value = '';
+      }
+    });
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      if (otherCheckbox.checked && otherText.value.trim() === '') {
+        alert("Please specify how you heard about us in the 'Other' field.");
+        otherText.focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      formMessage.style.display = 'none';
+
+      const formData = new FormData(form);
+      const urlEncodedData = new URLSearchParams(formData).toString();
+
+      try {
+        const response = await fetch(GOOGLE_APP_SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: urlEncodedData,
+        });
+
+        const data = await response.json();
+
+        if (data.result === 'success') {
+          formMessage.style.display = 'block';
+          formMessage.style.background = '#28a745';
+          formMessage.textContent = '✅ Success! Your discount claim has been submitted. We’ll contact you soon.';
+          form.reset();
+          otherText.style.display = 'none';
+        } else {
+          throw new Error(data.message || 'Server returned error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        formMessage.style.display = 'block';
+        formMessage.style.background = '#dc3545';
+        formMessage.textContent = '❌ There was an issue submitting your form. Please try again.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      }
     });
   </script>
 </body>
 </html>
-
-
-
-
