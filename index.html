@@ -479,8 +479,39 @@
 
               const formData = new FormData(form);
               
-              // Google Apps Script expects URL-encoded data, not JSON
-              const urlEncodedData = new URLSearchParams(formData).toString();
+              // Quick test - alert the data being sent
+              alert('About to send: ' + JSON.stringify({
+                companyName: formData.get('companyName'),
+                representativeName: formData.get('representativeName'),
+                contactEmail: formData.get('contactEmail')
+              }));
+              
+              // Handle multiple checkbox values for "source" field
+              const sources = [];
+              const sourceCheckboxes = document.querySelectorAll('input[name="source"]:checked');
+              sourceCheckboxes.forEach(checkbox => {
+                if (checkbox.value === 'Other' && otherText.value.trim()) {
+                  sources.push(`Other: ${otherText.value.trim()}`);
+                } else if (checkbox.value !== 'Other') {
+                  sources.push(checkbox.value);
+                }
+              });
+              
+              // Create form data with proper source handling
+              const formDataObj = {
+                companyName: formData.get('companyName'),
+                representativeName: formData.get('representativeName'),
+                contactNumber: formData.get('contactNumber'),
+                contactEmail: formData.get('contactEmail'),
+                source: sources.join(', '), // Join multiple sources with comma
+                agreeTerms: formData.get('agreeTerms')
+              };
+              
+              const urlEncodedData = new URLSearchParams(formDataObj).toString();
+
+              // Debug: Log what we're sending
+              console.log('Sending data:', formDataObj);
+              console.log('URL encoded:', urlEncodedData);
 
               fetch(GOOGLE_APP_SCRIPT_URL, {
                 method: 'POST',
@@ -491,26 +522,35 @@
                 body: urlEncodedData
               })
               .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
                 if (!response.ok) {
-                  throw new Error('Network response was not ok');
+                  throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
                 }
-                return response.json();
+                return response.text(); // Get as text first to see raw response
               })
-              .then(data => {
-                if (data.result === 'success') {
-                  formMessage.style.backgroundColor = '#28a745'; // Green for success
-                  formMessage.textContent = 'Success! Your discount claim has been submitted. We will contact you soon.';
-                  formMessage.style.display = 'block';
-                  form.reset(); // Clear the form on success
-                  otherText.style.display = 'none'; // Hide "Other" text field
-                } else {
-                  throw new Error('Submission failed on the server side.');
+              .then(responseText => {
+                console.log('Raw response:', responseText);
+                try {
+                  const data = JSON.parse(responseText);
+                  if (data.result === 'success') {
+                    formMessage.style.backgroundColor = '#28a745'; // Green for success
+                    formMessage.textContent = 'Success! Your discount claim has been submitted. We will contact you soon.';
+                    formMessage.style.display = 'block';
+                    form.reset(); // Clear the form on success
+                    otherText.style.display = 'none'; // Hide "Other" text field
+                  } else {
+                    throw new Error('Submission failed on the server side: ' + (data.message || 'Unknown error'));
+                  }
+                } catch (parseError) {
+                  console.error('JSON parse error:', parseError);
+                  throw new Error('Invalid response from server: ' + responseText);
                 }
               })
               .catch(error => {
-                console.error('Error:', error);
+                console.error('Full error details:', error);
                 formMessage.style.backgroundColor = '#dc3545'; // Red for error
-                formMessage.textContent = 'An error occurred during submission. Please try again or contact us directly.';
+                formMessage.textContent = 'Error: ' + error.message + '. Check browser console for details.';
                 formMessage.style.display = 'block';
               })
               .finally(() => {
@@ -560,5 +600,4 @@
   </script>
 </body>
 </html>
-
 
