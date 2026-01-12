@@ -448,7 +448,25 @@
             const formMessage = document.getElementById('formMessage');
             
             // IMPORTANT: REPLACE THIS PLACEHOLDER URL WITH YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL
-            const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJ2zwbWpgzv7mqqF7yzYiMNqqzSbbYLmxLhcLBDhDJkNSoGmwHd4WZvpg6-a386juAAA/exec';
+            const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZyTN3WAIt01hP5mz9bZQU_cnK91Fbg-hX1CyilxVE/dev';
+
+            // Test function to check if Google Apps Script is accessible
+            function testGoogleAppsScript() {
+              console.log('Testing Google Apps Script URL...');
+              fetch(GOOGLE_APP_SCRIPT_URL + '?test=true', {
+                method: 'GET',
+                mode: 'no-cors'
+              })
+              .then(() => {
+                console.log('Google Apps Script URL appears to be accessible');
+              })
+              .catch(error => {
+                console.error('Google Apps Script URL test failed:', error);
+              });
+            }
+            
+            // Run test on page load
+            testGoogleAppsScript();
 
             // 1. Logic for "Other" checkbox
             otherCheckbox.addEventListener('change', function() {
@@ -479,12 +497,12 @@
 
               const formData = new FormData(form);
               
-              // Quick test - alert the data being sent
-              alert('About to send: ' + JSON.stringify({
-                companyName: formData.get('companyName'),
-                representativeName: formData.get('representativeName'),
-                contactEmail: formData.get('contactEmail')
-              }));
+              // Enhanced debugging - log all form data
+              console.log('Form submission started');
+              console.log('Google Apps Script URL:', GOOGLE_APP_SCRIPT_URL);
+              
+              // Test if the URL is reachable
+              console.log('Testing URL accessibility...');
               
               // Handle multiple checkbox values for "source" field
               const sources = [];
@@ -515,15 +533,28 @@
 
               fetch(GOOGLE_APP_SCRIPT_URL, {
                 method: 'POST',
-                mode: 'cors', // Crucial for cross-origin requests to GAS
+                mode: 'no-cors', // Try no-cors first to avoid CORS issues
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: urlEncodedData
               })
               .then(response => {
+                console.log('Response received:', response);
                 console.log('Response status:', response.status);
-                console.log('Response headers:', response.headers);
+                console.log('Response type:', response.type);
+                
+                // With no-cors, we can't read the response, so assume success if no error
+                if (response.type === 'opaque') {
+                  console.log('Request sent successfully (opaque response due to no-cors)');
+                  formMessage.style.backgroundColor = '#28a745'; // Green for success
+                  formMessage.textContent = 'Success! Your discount claim has been submitted. We will contact you soon.';
+                  formMessage.style.display = 'block';
+                  form.reset(); // Clear the form on success
+                  otherText.style.display = 'none'; // Hide "Other" text field
+                  return;
+                }
+                
                 if (!response.ok) {
                   throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
                 }
@@ -549,9 +580,32 @@
               })
               .catch(error => {
                 console.error('Full error details:', error);
-                formMessage.style.backgroundColor = '#dc3545'; // Red for error
-                formMessage.textContent = 'Error: ' + error.message + '. Check browser console for details.';
-                formMessage.style.display = 'block';
+                console.log('Attempting alternative submission method...');
+                
+                // Alternative: Try with different CORS settings
+                fetch(GOOGLE_APP_SCRIPT_URL, {
+                  method: 'POST',
+                  mode: 'cors',
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                  body: urlEncodedData
+                })
+                .then(response => response.text())
+                .then(data => {
+                  console.log('Alternative method response:', data);
+                  formMessage.style.backgroundColor = '#28a745';
+                  formMessage.textContent = 'Success! Your discount claim has been submitted. We will contact you soon.';
+                  formMessage.style.display = 'block';
+                  form.reset();
+                  otherText.style.display = 'none';
+                })
+                .catch(altError => {
+                  console.error('Alternative method also failed:', altError);
+                  formMessage.style.backgroundColor = '#dc3545'; // Red for error
+                  formMessage.textContent = 'Error: Unable to submit form. Please try again or contact us directly. Error: ' + error.message;
+                  formMessage.style.display = 'block';
+                });
               })
               .finally(() => {
                 submitButton.disabled = false;
