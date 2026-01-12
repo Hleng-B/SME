@@ -501,9 +501,6 @@
               console.log('Form submission started');
               console.log('Google Apps Script URL:', GOOGLE_APP_SCRIPT_URL);
               
-              // Test if the URL is reachable
-              console.log('Testing URL accessibility...');
-              
               // Handle multiple checkbox values for "source" field
               const sources = [];
               const sourceCheckboxes = document.querySelectorAll('input[name="source"]:checked');
@@ -531,81 +528,29 @@
               console.log('Sending data:', formDataObj);
               console.log('URL encoded:', urlEncodedData);
 
+              // Simplified submission - assume success with no-cors
               fetch(GOOGLE_APP_SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Try no-cors first to avoid CORS issues
+                mode: 'no-cors',
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: urlEncodedData
               })
-              .then(response => {
-                console.log('Response received:', response);
-                console.log('Response status:', response.status);
-                console.log('Response type:', response.type);
-                
-                // With no-cors, we can't read the response, so assume success if no error
-                if (response.type === 'opaque') {
-                  console.log('Request sent successfully (opaque response due to no-cors)');
-                  formMessage.style.backgroundColor = '#28a745'; // Green for success
-                  formMessage.textContent = 'Success! Your discount claim has been submitted. We will contact you soon.';
-                  formMessage.style.display = 'block';
-                  form.reset(); // Clear the form on success
-                  otherText.style.display = 'none'; // Hide "Other" text field
-                  return;
-                }
-                
-                if (!response.ok) {
-                  throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
-                }
-                return response.text(); // Get as text first to see raw response
-              })
-              .then(responseText => {
-                console.log('Raw response:', responseText);
-                try {
-                  const data = JSON.parse(responseText);
-                  if (data.result === 'success') {
-                    formMessage.style.backgroundColor = '#28a745'; // Green for success
-                    formMessage.textContent = 'Success! Your discount claim has been submitted. We will contact you soon.';
-                    formMessage.style.display = 'block';
-                    form.reset(); // Clear the form on success
-                    otherText.style.display = 'none'; // Hide "Other" text field
-                  } else {
-                    throw new Error('Submission failed on the server side: ' + (data.message || 'Unknown error'));
-                  }
-                } catch (parseError) {
-                  console.error('JSON parse error:', parseError);
-                  throw new Error('Invalid response from server: ' + responseText);
-                }
+              .then(() => {
+                // With no-cors, we can't read the response, so assume success
+                console.log('Form submitted successfully');
+                formMessage.style.backgroundColor = '#28a745'; // Green for success
+                formMessage.textContent = 'Success! Your discount claim has been submitted. Check your email for voucher details.';
+                formMessage.style.display = 'block';
+                form.reset(); // Clear the form on success
+                otherText.style.display = 'none'; // Hide "Other" text field
               })
               .catch(error => {
-                console.error('Full error details:', error);
-                console.log('Attempting alternative submission method...');
-                
-                // Alternative: Try with different CORS settings
-                fetch(GOOGLE_APP_SCRIPT_URL, {
-                  method: 'POST',
-                  mode: 'cors',
-                  headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                  },
-                  body: urlEncodedData
-                })
-                .then(response => response.text())
-                .then(data => {
-                  console.log('Alternative method response:', data);
-                  formMessage.style.backgroundColor = '#28a745';
-                  formMessage.textContent = 'Success! Your discount claim has been submitted. We will contact you soon.';
-                  formMessage.style.display = 'block';
-                  form.reset();
-                  otherText.style.display = 'none';
-                })
-                .catch(altError => {
-                  console.error('Alternative method also failed:', altError);
-                  formMessage.style.backgroundColor = '#dc3545'; // Red for error
-                  formMessage.textContent = 'Error: Unable to submit form. Please try again or contact us directly. Error: ' + error.message;
-                  formMessage.style.display = 'block';
-                });
+                console.error('Submission error:', error);
+                formMessage.style.backgroundColor = '#dc3545'; // Red for error
+                formMessage.textContent = 'Error: Unable to submit form. Please try again or contact us directly.';
+                formMessage.style.display = 'block';
               })
               .finally(() => {
                 submitButton.disabled = false;
