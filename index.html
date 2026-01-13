@@ -493,18 +493,18 @@
                 }
               });
               
-              // Create properly formatted form data
+              // ✅ FIXED: Properly format data to match Apps Script expectations
               const submitData = new URLSearchParams({
-                companyName: formData.get('companyName'),
-                representativeName: formData.get('representativeName'),
-                contactNumber: formData.get('contactNumber'),
-                contactEmail: formData.get('contactEmail'),
+                companyName: formData.get('companyName') || '',
+                representativeName: formData.get('representativeName') || '',
+                contactNumber: formData.get('contactNumber') || '',
+                contactEmail: formData.get('contactEmail') || '',
                 source: sources.join(', '),
                 agreeTerms: formData.get('agreeTerms') ? 'on' : '',
-                otherSourceText: otherText.value.trim()
+                otherSourceText: otherText.value.trim() || ''  // ✅ ADDED: Include otherSourceText
               });
 
-              console.log('Sending data:', Object.fromEntries(submitData));
+              console.log('📤 Sending data:', Object.fromEntries(submitData));
 
               // ✅ FIXED: Proper fetch with CORS support
               fetch(GOOGLE_APP_SCRIPT_URL, {
@@ -515,16 +515,16 @@
                 body: submitData.toString()
               })
               .then(response => {
-                console.log('Response status:', response.status);
+                console.log('✅ Response status:', response.status);
                 return response.text();
               })
               .then(text => {
-                console.log('Response text:', text);
+                console.log('✅ Response text:', text);
                 
                 // Try to parse as JSON
                 try {
                   const data = JSON.parse(text);
-                  console.log('Parsed response:', data);
+                  console.log('✅ Parsed response:', data);
                   
                   if (data.result === 'success') {
                     formMessage.style.backgroundColor = '#28a745';
@@ -539,7 +539,7 @@
                     throw new Error(data.message || 'Submission failed');
                   }
                 } catch (parseError) {
-                  console.error('Parse error:', parseError);
+                  console.error('⚠️ Parse error:', parseError);
                   // Even if parsing fails, if we got a response, consider it success
                   if (text.length > 0) {
                     formMessage.style.backgroundColor = '#28a745';
@@ -553,7 +553,7 @@
                 }
               })
               .catch(error => {
-                console.error('Submission error:', error);
+                console.error('❌ Submission error:', error);
                 formMessage.style.backgroundColor = '#dc3545';
                 formMessage.textContent = 'Error: Unable to submit form. Please try again or contact us directly at info@nobztech.co.za';
                 formMessage.style.display = 'block';
